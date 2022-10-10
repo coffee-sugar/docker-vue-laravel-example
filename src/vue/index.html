@@ -1,0 +1,32 @@
+<html>
+
+<body>
+    <div id="app">
+        <h1>{{ message }}</h1>
+        <ul>
+            <li v-for="user in users">{{ user.name }} {{user.email}}</li>
+        </ul>
+    </div>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+        Vue.createApp({
+            el: '#app',
+            data() {
+                return {
+                    users: [],
+                }
+            },
+            mounted() {
+                axios.get('http://localhost:8080/app/api/users')
+                    .then(response => this.users = response.data)
+                    .catch(error => console.log(error))
+            }
+        }).mount('#app')
+    </script>
+
+</body>
+
+</html>
